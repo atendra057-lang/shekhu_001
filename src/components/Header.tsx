@@ -16,6 +16,16 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -114,20 +124,14 @@ export default function Header() {
                   color: "var(--color-navy)",
                   letterSpacing: "0.03em",
                 }}
-                className="hidden md:inline"
+                className="hidden sm:inline"
               >
                 {siteConfig.name}
               </span>
             </a>
 
-            {/* Desktop Navigation */}
-            <div
-              className="hidden md:flex"
-              style={{
-                alignItems: "center",
-                gap: "2rem",
-              }}
-            >
+            {/* Desktop Navigation (Visible on Desktop >=1024px) */}
+            <div className="nav-desktop-links">
               {siteConfig.navigation.map((item) => (
                 <a
                   key={item.href}
@@ -163,26 +167,13 @@ export default function Header() {
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile & Tablet Menu Button (Hidden on Desktop, Visible on Phone & Tab <1024px) */}
             <button
-              className="md:hidden"
+              className="nav-mobile-btn"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "44px",
-                height: "44px",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                gap: "5px",
-                padding: 0,
-              }}
             >
               <span
                 style={{

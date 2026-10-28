@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { projects, projectCategories, ProjectCategory, PortfolioProject } from "@/data/projects";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { ProjectIllustration } from "./CartographicIllustrations";
+import { ProjectIllustration, SelectedWorkBackgroundMap } from "./CartographicIllustrations";
 
 // General capabilities representing the planning disciplines when projects are undergoing publication clearance
 const capabilityShowcases = [
@@ -135,9 +135,13 @@ export default function SelectedWork() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Faded Land-Use & Zoning Map Watermark behind section */}
+      <SelectedWorkBackgroundMap />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{
@@ -347,13 +351,14 @@ export default function SelectedWork() {
                   flexDirection: "column",
                   backgroundColor: "var(--color-paper)",
                   overflow: "hidden",
+                  position: "relative",
                 }}
               >
                 {/* Cartographic Visual Header */}
                 <div
                   style={{
-                    height: "170px",
-                    backgroundColor: "rgba(243, 240, 233, 0.7)",
+                    height: "185px",
+                    backgroundColor: "rgba(243, 240, 233, 0.85)",
                     borderBottom: "1px solid var(--color-border)",
                     position: "relative",
                     display: "flex",
@@ -363,6 +368,17 @@ export default function SelectedWork() {
                   }}
                 >
                   <ProjectIllustration visualKey={showcase.visualKey} className="w-full h-full object-cover" />
+                  {/* Subtle edge vignette inside map header */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(to bottom, rgba(250, 249, 245, 0.08) 0%, transparent 40%, rgba(250, 249, 245, 0.35) 100%)",
+                      pointerEvents: "none",
+                    }}
+                  />
                   <span
                     style={{
                       position: "absolute",
@@ -379,10 +395,27 @@ export default function SelectedWork() {
                   >
                     {showcase.category}
                   </span>
+                  <span
+                    style={{
+                      position: "absolute",
+                      bottom: "0.5rem",
+                      right: "0.625rem",
+                      padding: "0.15rem 0.45rem",
+                      backgroundColor: "rgba(250, 249, 245, 0.88)",
+                      border: "1px solid rgba(208, 205, 197, 0.7)",
+                      color: "var(--color-sage-deep)",
+                      fontSize: "0.5625rem",
+                      fontFamily: "var(--font-body)",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Illustrative Diagram
+                  </span>
                 </div>
 
                 {/* Content */}
-                <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", flex: 1 }}>
+                <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", flex: 1, position: "relative" }}>
                   <h3
                     style={{
                       fontFamily: "var(--font-display)",

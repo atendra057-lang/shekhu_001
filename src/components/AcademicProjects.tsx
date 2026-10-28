@@ -15,9 +15,23 @@ export default function AcademicProjects() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle land-use & regional studio map watermark along edges */}
+      <div
+        aria-hidden="true"
+        className="map-watermark-layer section-map-edges"
+        style={{
+          backgroundImage: "url('/maps/land-use-zoning.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "left center",
+          opacity: 0.18,
+          transform: "scaleX(-1)",
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{

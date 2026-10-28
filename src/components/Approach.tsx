@@ -15,9 +15,23 @@ export default function Approach() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle topographic & spatial framework watermark along edges */}
+      <div
+        aria-hidden="true"
+        className="map-watermark-layer section-map-edges"
+        style={{
+          backgroundImage: "url('/maps/topographic-contours.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "left bottom",
+          opacity: 0.22,
+          transform: "scaleX(-1)",
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{

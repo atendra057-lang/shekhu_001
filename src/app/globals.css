@@ -292,7 +292,7 @@ body {
   transform: translateY(0);
 }
 
-/* ── Mobile Nav Overlay ── */
+/* ── Mobile & Tablet Nav Overlay ── */
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
@@ -305,11 +305,53 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  overscroll-behavior: contain;
 }
 
 .mobile-nav-overlay.open {
   opacity: 1;
   pointer-events: auto;
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav-overlay {
+    display: none !important;
+  }
+}
+
+/* ── Header Navigation: Desktop vs. Phone & Tablet ── */
+.nav-mobile-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 5px;
+  padding: 0;
+}
+
+/* Strictly remove hamburger button from desktop viewports */
+@media (min-width: 1024px) {
+  .nav-mobile-btn {
+    display: none !important;
+  }
+}
+
+.nav-desktop-links {
+  display: none;
+}
+
+/* Show desktop navigation on desktop viewports */
+@media (min-width: 1024px) {
+  .nav-desktop-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
 }
 
 /* ── Responsive Typography Sizes ── */
@@ -367,4 +409,100 @@ body {
   width: 1rem;
   height: 1px;
   background: var(--color-sage);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CARTOGRAPHIC WATERMARK & MASKING SYSTEM
+   Subtle paper-printed map layers with directional/radial CSS masks
+   ═══════════════════════════════════════════════════════════ */
+
+.map-watermark-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Hero map mask: concentrated on the right & outer margins, softly fading behind left headline copy */
+.hero-map-mask {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.32) 34%, rgba(0, 0, 0, 0.92) 62%, rgba(0, 0, 0, 1) 88%, rgba(0, 0, 0, 0.75) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 8%, black 90%, transparent 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.32) 34%, rgba(0, 0, 0, 0.92) 62%, rgba(0, 0, 0, 1) 88%, rgba(0, 0, 0, 0.75) 100%);
+  mask-composite: intersect;
+}
+
+/* Top, bottom, left & right soft-edge fade mask for section-wide watermarks */
+.section-map-fade {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* Outer-edge emphasis mask: keeps center reading column calmer while revealing cartography along edges */
+.section-map-edges {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+    radial-gradient(ellipse 52% 65% at 50% 54%, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.68) 60%, black 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+    radial-gradient(ellipse 52% 65% at 50% 54%, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.68) 60%, black 100%);
+  mask-composite: intersect;
+}
+
+/* Card corner watermark mask */
+.card-map-watermark {
+  -webkit-mask-image: radial-gradient(circle at 88% 18%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.45) 48%, transparent 82%);
+  mask-image: radial-gradient(circle at 88% 18%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.45) 48%, transparent 82%);
+}
+
+/* Dark navy section cartographic mask */
+.dark-map-mask {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 10%, black 92%, transparent 100%),
+    radial-gradient(ellipse 55% 65% at 32% 52%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.85) 65%, black 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 10%, black 92%, transparent 100%),
+    radial-gradient(ellipse 55% 65% at 32% 52%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.85) 65%, black 100%);
+  mask-composite: intersect;
+}
+
+/* Fallback for browsers without CSS mask-image support */
+@supports (not (mask-image: linear-gradient(to bottom, black, transparent))) and (not (-webkit-mask-image: linear-gradient(to bottom, black, transparent))) {
+  .hero-map-mask,
+  .section-map-fade,
+  .section-map-edges,
+  .card-map-watermark,
+  .dark-map-mask {
+    opacity: 0.55;
+  }
+}
+
+/* Responsive adjustments for mobile screens to preserve legibility and prevent clutter */
+@media (max-width: 767px) {
+  .hero-map-mask {
+    -webkit-mask-image:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.25) 42%, rgba(0, 0, 0, 0.85) 75%, transparent 100%);
+    mask-image:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.25) 42%, rgba(0, 0, 0, 0.85) 75%, transparent 100%);
+  }
+
+  .section-map-edges {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 15%, rgba(0, 0, 0, 0.55) 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 15%, rgba(0, 0, 0, 0.55) 85%, transparent 100%);
+  }
 }

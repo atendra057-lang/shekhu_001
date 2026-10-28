@@ -15,9 +15,22 @@ export default function Education() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle town-planning layout watermark along edges */}
+      <div
+        aria-hidden="true"
+        className="map-watermark-layer section-map-edges"
+        style={{
+          backgroundImage: "url('/maps/urban-street-network.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "left top",
+          opacity: 0.16,
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{

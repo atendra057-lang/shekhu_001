@@ -15,9 +15,23 @@ export default function Skills() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle GIS spatial grid watermark along edges */}
+      <div
+        aria-hidden="true"
+        className="map-watermark-layer section-map-edges"
+        style={{
+          backgroundImage: "url('/maps/gis-spatial-boundaries.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "left bottom",
+          opacity: 0.2,
+          transform: "scaleY(-1)",
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{

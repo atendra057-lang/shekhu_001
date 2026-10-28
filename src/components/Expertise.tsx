@@ -4,14 +4,46 @@ import React from "react";
 import { expertiseDomains } from "@/data/professional";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
+  ExpertiseBackgroundMap,
   MasterPlanGraphic,
   GISLayersGraphic,
   WaterInfraGraphic,
   ZonalPlanningGraphic,
+  FloodMitigationGraphic,
+  DPRDocumentationGraphic,
+  RegionalCoordinationGraphic,
 } from "./CartographicIllustrations";
+
+const cardMapTextures = [
+  { src: "/maps/land-use-zoning.svg", pos: "right top" },
+  { src: "/maps/gis-spatial-boundaries.svg", pos: "center" },
+  { src: "/maps/waterway-infrastructure.svg", pos: "left center" },
+  { src: "/maps/topographic-contours.svg", pos: "right bottom" },
+  { src: "/maps/neighbourhood-layout.svg", pos: "center top" },
+  { src: "/maps/urban-street-network.svg", pos: "right center" },
+];
 
 export default function Expertise() {
   const { ref, isVisible } = useScrollReveal(0.1);
+
+  const renderDomainGraphic = (index: number) => {
+    switch (index) {
+      case 0:
+        return <ZonalPlanningGraphic className="w-full h-28 object-cover" />;
+      case 1:
+        return <GISLayersGraphic className="w-full h-28 object-cover" />;
+      case 2:
+        return <WaterInfraGraphic className="w-full h-28 object-cover" />;
+      case 3:
+        return <FloodMitigationGraphic className="w-full h-28 object-cover" />;
+      case 4:
+        return <MasterPlanGraphic className="w-full h-28 object-cover" />;
+      case 5:
+        return <RegionalCoordinationGraphic className="w-full h-28 object-cover" />;
+      default:
+        return <DPRDocumentationGraphic className="w-full h-28 object-cover" />;
+    }
+  };
 
   return (
     <section
@@ -21,9 +53,13 @@ export default function Expertise() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle section-wide GIS & Spatial Boundary Map Watermark */}
+      <ExpertiseBackgroundMap />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{
@@ -56,7 +92,7 @@ export default function Expertise() {
 
           <div className="section-divider" style={{ marginBottom: "3.5rem" }} />
 
-          {/* Varied Grid Layout: Featured Large Domains + Structured Secondary Domains */}
+          {/* 6 Planning Domains with bespoke GIS & cartographic layers */}
           <div
             style={{
               display: "grid",
@@ -66,8 +102,7 @@ export default function Expertise() {
             className="md:!grid-cols-2 lg:!grid-cols-3"
           >
             {expertiseDomains.map((domain, index) => {
-              // Asymmetric composition with integrated cartographic visuals for specific domains
-              const hasIllustration = index === 0 || index === 1 || index === 2 || index === 4;
+              const bgTex = cardMapTextures[index % cardMapTextures.length];
 
               return (
                 <div
@@ -80,11 +115,33 @@ export default function Expertise() {
                     justifyContent: "space-between",
                     position: "relative",
                     overflow: "hidden",
-                    borderTop: index === 0 || index === 1 ? "2px solid var(--color-navy)" : undefined,
+                    backgroundColor: "rgba(250, 249, 245, 0.94)",
+                    borderTop:
+                      index === 0 || index === 1
+                        ? "2px solid var(--color-navy)"
+                        : undefined,
                   }}
                 >
-                  {/* Top metadata row */}
-                  <div>
+                  {/* Subtle printed map watermark in upper card surface */}
+                  <div
+                    className="card-map-watermark"
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      width: "75%",
+                      height: "65%",
+                      backgroundImage: `url('${bgTex.src}')`,
+                      backgroundSize: "cover",
+                      backgroundPosition: bgTex.pos,
+                      opacity: 0.14,
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  {/* Top metadata row & copy */}
+                  <div style={{ position: "relative", zIndex: 1 }}>
                     <div
                       style={{
                         display: "flex",
@@ -132,61 +189,33 @@ export default function Expertise() {
                       style={{
                         fontSize: "0.9375rem",
                         lineHeight: 1.65,
-                        marginBottom: hasIllustration ? "1.5rem" : "0",
+                        marginBottom: "1.5rem",
                       }}
                     >
                       {domain.description}
                     </p>
                   </div>
 
-                  {/* Cartographic visual motif for spatial domains */}
-                  {index === 0 && (
+                  {/* Domain-specific cartographic diagram strip */}
+                  <div
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                      marginTop: "auto",
+                      paddingTop: "1rem",
+                      borderTop: "1px dashed var(--color-border)",
+                    }}
+                  >
                     <div
                       style={{
-                        marginTop: "1.5rem",
-                        paddingTop: "1.25rem",
-                        borderTop: "1px dashed var(--color-border)",
+                        backgroundColor: "rgba(243, 240, 233, 0.55)",
+                        border: "1px solid rgba(208, 205, 197, 0.6)",
+                        overflow: "hidden",
                       }}
                     >
-                      <ZonalPlanningGraphic className="w-full h-24 object-contain" />
+                      {renderDomainGraphic(index)}
                     </div>
-                  )}
-
-                  {index === 1 && (
-                    <div
-                      style={{
-                        marginTop: "1.5rem",
-                        paddingTop: "1.25rem",
-                        borderTop: "1px dashed var(--color-border)",
-                      }}
-                    >
-                      <GISLayersGraphic className="w-full h-24 object-contain" />
-                    </div>
-                  )}
-
-                  {index === 2 && (
-                    <div
-                      style={{
-                        marginTop: "1.5rem",
-                        paddingTop: "1.25rem",
-                        borderTop: "1px dashed var(--color-border)",
-                      }}
-                    >
-                      <WaterInfraGraphic className="w-full h-24 object-contain" />
-                    </div>
-                  )}
-
-                  {index === 4 && (
-                    <div
-                      style={{
-                        marginTop: "1.5rem",
-                        paddingTop: "1.25rem",
-                        borderTop: "1px dashed var(--color-border)",
-                      }}
-                    >
-                      <MasterPlanGraphic className="w-full h-24 object-contain" />
-                    </div>
-                  )}
+                  </div>
                 </div>
               );
             })}

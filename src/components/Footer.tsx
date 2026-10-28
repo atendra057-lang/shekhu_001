@@ -29,9 +29,26 @@ export default function Footer() {
         borderTop: "1px solid var(--color-border-dark)",
         padding: "3.5rem 0 2.5rem 0",
         color: "var(--color-offwhite)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle dark cartographic continuation in footer */}
+      <div
+        aria-hidden="true"
+        className="section-map-fade"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url('/maps/dark-urban-network.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          opacity: 0.22,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         {/* Top footer row */}
         <div
           style={{

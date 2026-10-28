@@ -3,6 +3,14 @@
 import React, { useState } from "react";
 import { experience } from "@/data/professional";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ExperienceBackgroundMap } from "./CartographicIllustrations";
+
+const timelineCardMaps = [
+  "/maps/land-use-zoning.svg",
+  "/maps/waterway-infrastructure.svg",
+  "/maps/neighbourhood-layout.svg",
+  "/maps/topographic-contours.svg",
+];
 
 export default function Experience() {
   const { ref, isVisible } = useScrollReveal(0.1);
@@ -20,9 +28,13 @@ export default function Experience() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle cartographic linework along the outer edges of the timeline section */}
+      <ExperienceBackgroundMap />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{
@@ -71,8 +83,28 @@ export default function Experience() {
                     backgroundColor: isCurrent ? "var(--color-offwhite)" : "var(--color-paper)",
                     borderLeft: isCurrent ? "4px solid var(--color-navy)" : "1px solid var(--color-border)",
                     transition: "all 0.3s ease",
+                    position: "relative",
+                    overflow: "hidden",
                   }}
                 >
+                  {/* Restrained cartographic corner detail away from long descriptions */}
+                  <div
+                    className="card-map-watermark"
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      width: "280px",
+                      height: "130px",
+                      backgroundImage: `url('${timelineCardMaps[index % timelineCardMaps.length]}')`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "right top",
+                      opacity: 0.11,
+                      pointerEvents: "none",
+                    }}
+                  />
+
                   {/* Header Row: Role, Organization, Location, Period */}
                   <div
                     style={{
@@ -80,6 +112,8 @@ export default function Experience() {
                       flexDirection: "column",
                       gap: "0.5rem",
                       marginBottom: "1.75rem",
+                      position: "relative",
+                      zIndex: 1,
                     }}
                     className="md:!flex-row md:!items-baseline md:!justify-between"
                   >

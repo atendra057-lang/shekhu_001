@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteConfig";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { HeroMapIllustration } from "./CartographicIllustrations";
 
 export default function Hero() {
   const { ref, isVisible } = useScrollReveal(0.1);
@@ -33,6 +34,9 @@ export default function Hero() {
         paddingBottom: "4rem",
       }}
     >
+      {/* Large-scale Urban Planning & Street Network Background Watermark */}
+      <HeroMapIllustration />
+
       <div className="container-wide" style={{ width: "100%", position: "relative", zIndex: 2 }}>
         <div
           style={{
@@ -166,13 +170,30 @@ export default function Hero() {
                 maxWidth: "480px",
               }}
             >
+              {/* Offset cartographic sheet plate behind portrait */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: "-26px -22px -22px -26px",
+                  backgroundColor: "rgba(243, 240, 233, 0.55)",
+                  backgroundImage: "url('/maps/land-use-zoning.svg')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  border: "1px dashed rgba(129, 144, 122, 0.35)",
+                  opacity: 0.45,
+                  pointerEvents: "none",
+                }}
+              />
+
               {/* Outer architectural registration frame */}
               <div
                 style={{
                   position: "absolute",
                   inset: "-14px",
                   border: "1px solid var(--color-border)",
-                  opacity: 0.7,
+                  backgroundColor: "rgba(250, 249, 245, 0.35)",
+                  opacity: 0.85,
                   pointerEvents: "none",
                 }}
               />

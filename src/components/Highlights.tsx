@@ -15,9 +15,22 @@ export default function Highlights() {
         paddingTop: "var(--spacing-section)",
         paddingBottom: "var(--spacing-section)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container-content">
+      {/* Subtle neighbourhood & parcel network watermark along edges */}
+      <div
+        aria-hidden="true"
+        className="map-watermark-layer section-map-edges"
+        style={{
+          backgroundImage: "url('/maps/neighbourhood-layout.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.18,
+        }}
+      />
+
+      <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
           ref={ref}
           style={{

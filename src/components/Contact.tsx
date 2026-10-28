@@ -27,7 +27,7 @@ export default function Contact() {
       }}
     >
       {/* Dark Cartographic Background */}
-      <ContactMapBackground className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-40" />
+      <ContactMapBackground />
 
       <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         <div
