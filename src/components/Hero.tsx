@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { siteConfig } from "@/data/siteConfig";
-import { HeroMapIllustration } from "./CartographicIllustrations";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Hero() {
@@ -29,7 +29,8 @@ export default function Hero() {
         backgroundColor: "var(--color-paper)",
         position: "relative",
         overflow: "hidden",
-        paddingTop: "4.5rem",
+        paddingTop: "5.5rem",
+        paddingBottom: "4rem",
       }}
     >
       <div className="container-wide" style={{ width: "100%", position: "relative", zIndex: 2 }}>
@@ -37,22 +38,22 @@ export default function Hero() {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr",
-            gap: "2rem",
+            gap: "3.5rem",
             alignItems: "center",
           }}
-          className="md:!grid-cols-hero"
+          className="lg:!grid-cols-2"
         >
           {/* Text Content */}
           <div
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
+              paddingTop: "1rem",
+              paddingBottom: "1rem",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(24px)",
               transition: "opacity 0.8s ease, transform 0.8s ease",
             }}
           >
-            {/* Label */}
+            {/* Focus areas pill label */}
             <div className="text-label" style={{ marginBottom: "1.5rem" }}>
               {siteConfig.focusAreas.join(" · ")}
             </div>
@@ -60,7 +61,7 @@ export default function Hero() {
             {/* Name */}
             <h1
               className="heading-display hero-name"
-              style={{ marginBottom: "0.75rem" }}
+              style={{ marginBottom: "0.5rem" }}
             >
               {siteConfig.name}
             </h1>
@@ -69,23 +70,25 @@ export default function Hero() {
             <div
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.25rem, 3vw, 1.75rem)",
+                fontSize: "clamp(1.375rem, 3vw, 1.875rem)",
                 color: "var(--color-sage-deep)",
-                fontWeight: 400,
-                marginBottom: "1rem",
+                fontWeight: 500,
+                marginBottom: "0.75rem",
               }}
             >
               {siteConfig.title}
             </div>
 
-            {/* Employer */}
+            {/* Current Employer */}
             <div
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "0.875rem",
                 color: "var(--color-secondary-text)",
-                marginBottom: "1.75rem",
-                letterSpacing: "0.02em",
+                marginBottom: "2rem",
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                fontWeight: 500,
               }}
             >
               {siteConfig.employer}
@@ -95,30 +98,31 @@ export default function Hero() {
             <p
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.375rem, 3vw, 1.875rem)",
-                lineHeight: 1.3,
+                fontSize: "clamp(1.5rem, 3.2vw, 2.125rem)",
+                lineHeight: 1.25,
                 color: "var(--color-navy)",
-                fontWeight: 400,
+                fontWeight: 500,
                 fontStyle: "italic",
-                marginBottom: "1.25rem",
-                maxWidth: "480px",
+                marginBottom: "1.5rem",
+                maxWidth: "520px",
               }}
             >
-              {siteConfig.headline}
+              "{siteConfig.headline}"
             </p>
 
             {/* Supporting text */}
             <p
               className="text-body"
               style={{
-                maxWidth: "460px",
+                maxWidth: "480px",
                 marginBottom: "2.5rem",
+                fontSize: "1.0625rem",
               }}
             >
               {siteConfig.subHeadline}
             </p>
 
-            {/* Actions */}
+            {/* Call to action buttons */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
               <button
                 className="btn-primary"
@@ -137,13 +141,13 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* Scale bar decorative */}
+            {/* Scale bar decorative element */}
             <div className="scale-bar" style={{ marginTop: "3rem" }}>
-              Urban Planning Portfolio
+              Urban Planning Portfolio · Spatial Clarity
             </div>
           </div>
 
-          {/* Cartographic Illustration */}
+          {/* Hero Portrait with Architectural / Cartographic Frame */}
           <div
             style={{
               display: "flex",
@@ -159,43 +163,156 @@ export default function Hero() {
               style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: "520px",
+                maxWidth: "480px",
               }}
             >
-              {/* Map frame border */}
+              {/* Outer architectural registration frame */}
               <div
                 style={{
                   position: "absolute",
-                  inset: "-8px",
+                  inset: "-14px",
                   border: "1px solid var(--color-border)",
-                  opacity: 0.5,
+                  opacity: 0.7,
                   pointerEvents: "none",
                 }}
               />
-              <HeroMapIllustration
-                className="w-full h-auto"
-              />
-              {/* Corner tick marks */}
+
+              {/* Corner registration ticks */}
               <svg
-                style={{ position: "absolute", top: "-12px", left: "-12px" }}
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
+                style={{ position: "absolute", top: "-20px", left: "-20px" }}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
                 aria-hidden="true"
               >
-                <line x1="0" y1="8" x2="16" y2="8" stroke="var(--color-sage)" strokeWidth="0.5" opacity="0.4" />
-                <line x1="8" y1="0" x2="8" y2="16" stroke="var(--color-sage)" strokeWidth="0.5" opacity="0.4" />
+                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
               </svg>
+
               <svg
-                style={{ position: "absolute", bottom: "-12px", right: "-12px" }}
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
+                style={{ position: "absolute", top: "-20px", right: "-20px" }}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
                 aria-hidden="true"
               >
-                <line x1="0" y1="8" x2="16" y2="8" stroke="var(--color-sage)" strokeWidth="0.5" opacity="0.4" />
-                <line x1="8" y1="0" x2="8" y2="16" stroke="var(--color-sage)" strokeWidth="0.5" opacity="0.4" />
+                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
               </svg>
+
+              <svg
+                style={{ position: "absolute", bottom: "-20px", left: "-20px" }}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+              </svg>
+
+              <svg
+                style={{ position: "absolute", bottom: "-20px", right: "-20px" }}
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-sage)" strokeWidth="0.8" opacity="0.6" />
+              </svg>
+
+              {/* Portrait Container */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "3/4",
+                  overflow: "hidden",
+                  backgroundColor: "var(--color-navy)",
+                  border: "1px solid var(--color-navy)",
+                  boxShadow: "0 16px 40px rgba(16, 40, 59, 0.14)",
+                }}
+              >
+                <Image
+                  src="/abhishek-maurya.jpg"
+                  alt="Abhishek Maurya — Urban Planner"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 480px"
+                  priority
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                  }}
+                />
+
+                {/* Subtle base vignette */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(9, 29, 45, 0.7) 0%, rgba(9, 29, 45, 0.1) 30%, transparent 60%)",
+                    pointerEvents: "none",
+                  }}
+                />
+
+                {/* Floating caption card */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "1.25rem",
+                    left: "1.25rem",
+                    right: "1.25rem",
+                    padding: "1rem 1.25rem",
+                    backgroundColor: "rgba(16, 40, 59, 0.92)",
+                    backdropFilter: "blur(8px)",
+                    border: "1px solid rgba(216, 213, 204, 0.25)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "1.125rem",
+                        color: "var(--color-offwhite)",
+                        fontWeight: 600,
+                        lineHeight: 1.2,
+                        marginBottom: "0.2rem",
+                      }}
+                    >
+                      Abhishek Maurya
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.75rem",
+                        color: "var(--color-sage-light)",
+                        letterSpacing: "0.04em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Urban Planner · Stesalit Private Limited
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.6875rem",
+                      color: "rgba(243, 240, 233, 0.6)",
+                      letterSpacing: "0.08em",
+                      textAlign: "right",
+                      borderLeft: "1px solid rgba(216, 213, 204, 0.2)",
+                      paddingLeft: "0.875rem",
+                    }}
+                  >
+                    PLANNING<br />STUDIO
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
